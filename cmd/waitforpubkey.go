@@ -76,7 +76,7 @@ to quickly create a Cobra application.`,
 			}
 
 			if found {
-				fmt.Println(txWithBlock.GetTx())
+				fmt.Println(txWithBlock.GetTx().Hash)
 
 				for _, flag := range txWithBlock.GetTx().GetFlags() {
 					fmt.Println(flag)

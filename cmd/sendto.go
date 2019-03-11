@@ -36,7 +36,7 @@ to quickly create a Cobra application.`,
 
 		privKeyHex, _ := cmd.PersistentFlags().GetString("privkey")
 		pubKeyHex, _ := cmd.PersistentFlags().GetString("pubkey")
-		spentOutputValue, _ := cmd.PersistentFlags().GetUint64("spentOutputValue")
+		spentOutputValue, _ := cmd.PersistentFlags().GetUint64("spentoutputvalue")
 
 		hashBytes, _ := hex.DecodeString(hash)
 
