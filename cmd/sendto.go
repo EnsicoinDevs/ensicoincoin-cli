@@ -40,7 +40,7 @@ to quickly create a Cobra application.`,
 
 		hashBytes, _ := hex.DecodeString(hash)
 
-		tx.Flags, _ = cmd.PersistentFlags().GetStringSlice("flag")
+		tx.Flags, _ = cmd.PersistentFlags().GetStringArray("flag")
 
 		tx.Inputs = []*network.TxIn{
 			&network.TxIn{
