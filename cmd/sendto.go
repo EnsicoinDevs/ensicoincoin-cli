@@ -145,5 +145,5 @@ func init() {
 	sendtoCmd.PersistentFlags().String("pubkey", "", "")
 	sendtoCmd.PersistentFlags().String("privkey", "", "")
 	sendtoCmd.PersistentFlags().Uint64("spentoutputvalue", 0, "")
-	sendtoCmd.PersistentFlags().StringSlice("flag", nil, "")
+	sendtoCmd.PersistentFlags().ArraySlice("flag", nil, "")
 }
