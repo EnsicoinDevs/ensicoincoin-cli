@@ -43,13 +43,36 @@ to quickly create a Cobra application.`,
 
 		tx.Flags, _ = cmd.PersistentFlags().GetStringArray("flag")
 
-		if stdin, _ := cmd.PersistentFlags().GetBool("stdin"); stdin {
-			scanner := bufio.NewScanner(os.Stdin)
-			for scanner.Scan() {
-				flag := scanner.Text()
-				tx.Flags = append(tx.Flags, flag)
+		flagsfile, _ := cmd.PersistentFlags().GetString("flagsfile")
+		if flagsfile != "" {
+			fmt.Println("hey")
+
+			file, err := os.Open(flagsfile)
+			if err != nil {
+				fmt.Println(err)
+				return
 			}
+
+			scanner := bufio.NewScanner(file)
+			bufSize := 256 * 1024
+			buf := make([]byte, bufSize)
+			scanner.Buffer(buf, bufSize)
+
+			for scanner.Scan() {
+				fmt.Println("coucou")
+				tx.Flags = append(tx.Flags, scanner.Text())
+				fmt.Println("oh")
+			}
+
+			if err := scanner.Err(); err != nil {
+				fmt.Println(err)
+				return
+			}
+
+			file.Close()
 		}
+
+		fmt.Println(tx.Flags)
 
 		tx.Inputs = []*network.TxIn{
 			&network.TxIn{
@@ -154,6 +177,6 @@ func init() {
 	sendtoCmd.PersistentFlags().String("pubkey", "", "")
 	sendtoCmd.PersistentFlags().String("privkey", "", "")
 	sendtoCmd.PersistentFlags().Uint64("spentoutputvalue", 0, "")
-	sendtoCmd.PersistentFlags().Bool("stdin", false, "")
+	sendtoCmd.PersistentFlags().String("flagsfile", "", "")
 	sendtoCmd.PersistentFlags().StringArray("flag", nil, "")
 }
