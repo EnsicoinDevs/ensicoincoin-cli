@@ -8,6 +8,7 @@ import (
 	"golang.org/x/crypto/ripemd160"
 	"google.golang.org/grpc"
 	"os"
+	"strconv"
 	"time"
 
 	pb "github.com/EnsicoinDevs/ensicoincoin-cli/rpc"
@@ -41,6 +42,18 @@ to quickly create a Cobra application.`,
 		hashBytes, _ := hex.DecodeString(hash)
 
 		tx.Flags, _ = cmd.PersistentFlags().GetStringArray("flag")
+
+		if stdin, _ := cmd.PersistentFlags().GetBool("stdin"); stdin {
+			nbFlagsString := ""
+			fmt.Scanln(&nbFlagsString)
+			nbFlags, _ := strconv.Atoi(nbFlagsString)
+
+			for i := 0; i < nbFlags; i++ {
+				flag := ""
+				fmt.Scanln(&flag)
+				tx.Flags = append(tx.Flags, flag)
+			}
+		}
 
 		tx.Inputs = []*network.TxIn{
 			&network.TxIn{
@@ -145,5 +158,6 @@ func init() {
 	sendtoCmd.PersistentFlags().String("pubkey", "", "")
 	sendtoCmd.PersistentFlags().String("privkey", "", "")
 	sendtoCmd.PersistentFlags().Uint64("spentoutputvalue", 0, "")
+	sendtoCmd.PersistentFlags().Bool("stdin", false, "")
 	sendtoCmd.PersistentFlags().StringArray("flag", nil, "")
 }
