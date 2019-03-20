@@ -54,7 +54,7 @@ to quickly create a Cobra application.`,
 			}
 
 			scanner := bufio.NewScanner(file)
-			bufSize := 256 * 1024
+			bufSize := 1024 * 1024
 			buf := make([]byte, bufSize)
 			scanner.Buffer(buf, bufSize)
 
