@@ -1,6 +1,6 @@
 package main
 
-import "github.com/EnsicoinDevs/ensicoincoin-cli/cmd"
+import "github.com/EnsicoinDevs/eccctl/cmd"
 
 func main() {
 	cmd.Execute()
